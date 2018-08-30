@@ -1,6 +1,6 @@
 language: c
 
-script: asdf plugin-test kubebuilder https://github.com/virtualstaticvoid/asdf-kubebuilder.git "kubebuilder version"
+script: asdf plugin-test kubebuilder https://github.com/virtualstaticvoid/asdf-kubebuilder.git
 
 before_script:
   - git clone --branch master --depth=1 https://github.com/asdf-vm/asdf.git asdf
