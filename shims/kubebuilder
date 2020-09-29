@@ -1,0 +1,4 @@
+#!/bin/bash
+kbpath=$(asdf where kubebuilder)
+export KUBEBUILDER_ASSETS="${kbpath}/bin"
+"${kbpath}/bin/kubebuilder" "$@"
