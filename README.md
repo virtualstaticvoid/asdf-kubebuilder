@@ -1,6 +1,6 @@
 # asdf-kubebuilder
 
-[![Build Status](https://travis-ci.org/virtualstaticvoid/asdf-kubebuilder.svg?branch=master)](https://travis-ci.org/virtualstaticvoid/asdf-kubebuilder)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/virtualstaticvoid/asdf-kubebuilder/Main%20Workflow?style=flat-square)](https://github.com/virtualstaticvoid/asdf-kubebuilder/actions)
 
 [`kubebuilder`][util] plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
