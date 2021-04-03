@@ -25,3 +25,21 @@ jobs:
           command: kubebuilder --help
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # these tests to cover when the naming convention of the download files changed
+
+      - name: asdf_plugin_test_2_3_2
+        uses: asdf-vm/actions/plugin-test@v1.0.1
+        with:
+          command: kubebuilder --help
+          version: "2.3.2"
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: asdf_plugin_test_3_0_0
+        uses: asdf-vm/actions/plugin-test@v1.0.1
+        with:
+          command: kubebuilder --help
+          version: "3.0.0-beta.1"
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
