@@ -13,13 +13,28 @@ install_plugin() {
   local version=$2
   local install_path=$3
   local download_url="$(get_download_url $install_type $version)"
-  local tmp_download_file=$(mktemp)
 
   echo "Downloading kubebuilder from $download_url"
-  curl -L -s "$download_url" -o "$tmp_download_file"
-  pushd $install_path > /dev/null
-  tar zxf "$tmp_download_file" --strip-components 1 || exit 1
-  popd > /dev/null
+
+  # releases from 3.0.0 onwards are a self-contained executable
+  if [ "$(printf '%s\n' "3.0.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
+    local bin_install_path="$install_path/bin"
+    local bin_path="${bin_install_path}/kubebuilder"
+
+    mkdir -p "${bin_install_path}"
+    curl -s -L "$download_url" -o "$bin_path"
+    chmod +x $bin_path
+
+  else
+    # releases prior to 3.0.0 are tar.gz file containing several executables
+    local tmp_download_file=$(mktemp)
+
+    curl -L -s "$download_url" -o "$tmp_download_file"
+    pushd $install_path > /dev/null
+    tar zxf "$tmp_download_file" --strip-components 1 || exit 1
+    popd > /dev/null
+
+  fi
 }
 
 get_platform() {
@@ -40,7 +55,12 @@ get_download_url() {
     tag="v${tag}"
   fi
 
-  echo "https://github.com/kubernetes-sigs/kubebuilder/releases/download/${tag}/kubebuilder_${version}_${platform}_amd64.tar.gz"
+  # releases from 3.0.0 do not have version in the download filename
+  if [ "$(printf '%s\n' "3.0.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
+    echo "https://github.com/kubernetes-sigs/kubebuilder/releases/download/${tag}/kubebuilder_${platform}_amd64"
+  else
+    echo "https://github.com/kubernetes-sigs/kubebuilder/releases/download/${tag}/kubebuilder_${version}_${platform}_amd64.tar.gz"
+  fi
 }
 
 install_plugin "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
