@@ -40,6 +40,6 @@ jobs:
         uses: asdf-vm/actions/plugin-test@v1.0.1
         with:
           command: kubebuilder --help
-          version: "3.0.0-beta.1"
+          version: "3.0.0"
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
