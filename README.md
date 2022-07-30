@@ -8,6 +8,7 @@
 
 ```
 asdf plugin-add kubebuilder https://github.com/virtualstaticvoid/asdf-kubebuilder.git
+asdf install kubebuilder latest
 ```
 
 ## Use
