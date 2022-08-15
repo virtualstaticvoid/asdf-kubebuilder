@@ -32,14 +32,6 @@ install_plugin() {
     curl -L -s "$download_url" -o "$tmp_download_file"
     pushd $install_path > /dev/null
     tar zxf "$tmp_download_file" --strip-components 1 || exit 1
-
-    # remove additional bundled binaries which are likely to be conflicting
-    echo "WARNING: Removing conflicting bundled binaries."
-    echo "See https://github.com/virtualstaticvoid/asdf-kubebuilder/issues/6 for details"
-    rm bin/etcd || true
-    rm bin/kube-apiserver || true
-    rm bin/kubectl || true
-
     popd > /dev/null
   fi
 }
