@@ -7,6 +7,6 @@ set -o pipefail
 # releases prior to 3.0.0 included several executables which potentially
 # clash with other plugins, such as kubectl
 # see https://github.com/virtualstaticvoid/asdf-kubebuilder/issues/6
-
-# return specific executable
-echo "bin/kubebuilder"
+if [ "$(printf '%s\n' "3.0.0" "$ASDF_INSTALL_VERSION" | sort -rV | head -n1)" = "$ASDF_INSTALL_VERSION" ]; then
+  echo "bin"
+fi
